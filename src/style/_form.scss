@@ -1,0 +1,50 @@
+.form {
+  display: block;
+}
+.form__container {
+  display: block;
+  margin: 0 auto;
+  max-width: 460px;
+}
+.form__block {
+  display: block;
+  text-align: left;
+  &:first-child {
+    margin-bottom: 37px;
+  }
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+.form__info {
+  display: block;
+  font-family: $montserrat;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  margin-top: 36px;
+  text-align: center;
+
+  strong {
+    text-decoration: none;
+    font-weight: 700;
+    color: $color-black;
+    transition: color $duration $easing;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-black-hover;
+    }
+  }
+}
+.form--post {
+  padding-top: 20px;
+
+  .form__block {
+    &:first-child {
+      margin-bottom: 0;
+    }
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+}

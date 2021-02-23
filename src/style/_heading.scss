@@ -1,0 +1,18 @@
+.heading {
+  font-family: $montserrat;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+$sizes: ('xl', 50px),
+  ('lg', 40px),
+  ('md', 30px),
+  ('sm', 20px),
+  ('xs', 10px);
+
+@each $modifier, $value in $sizes {
+  .heading--#{$modifier} {
+    font-size: $value;
+    line-height: 2;
+  }
+}
