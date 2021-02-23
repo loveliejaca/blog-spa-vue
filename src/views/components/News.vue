@@ -97,7 +97,7 @@ export default {
 <style lang="scss" scoped>
 .news {
   display: block;
-  max-width: 1200px;
+  
   margin: 0 auto;
 }
 .news__list {

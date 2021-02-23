@@ -109,7 +109,7 @@ export default {
                 token: res.data.authenticate
               }
             }
-            ls.setItem('sfe', JSON.stringify(data))
+            ls.setItem('auth', JSON.stringify(data))
             this.$store.dispatch('AUTHENTICATE', data)
             this.$emit('close')
           })

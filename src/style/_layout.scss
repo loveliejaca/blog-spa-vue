@@ -9,7 +9,11 @@
   display: block;
   position: relative;
   width: 100%;
-  padding: 0 40px;
+  padding: 0 120px;
+
+  @include mq(1200) {
+    padding: 0 5%;
+  }
 }
 
 .l-header {
@@ -21,4 +25,30 @@
   display: block;
   position: relative;
   width: 100%;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 120px;
+  z-index: $z-max + 3;
+  margin: auto;
+  @include mq(1200) {
+    padding: 0 5%;
+  }
+}
+
+.header__btn {
+  display: inline-block;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+.header__btn-text {
+  font-size: 18px;
+  color: $color-black;
+  font-weight: bold;
+  letter-spacing: 0.1em;
 }

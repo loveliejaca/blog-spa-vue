@@ -94,26 +94,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    z-index: $z-max + 3;
-    max-width: 1200px;
-    margin: auto;
-  }
 
-  .header__btn {
-    display: inline-block;
-    background-color: transparent;
-    border: 0;
-    outline: none;
-  }
-  .header__btn-text {
-    font-size: 18px;
-    color: $color-black;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-  }
 </style>

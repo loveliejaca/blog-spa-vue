@@ -1,5 +1,5 @@
 <template>
-  <div id="js-slider" class="hero-slider">
+  <div ref="slider" class="hero-slider">
     <button
       :class="{ 'is-disabled' : getSlider.active === 0 }"
       class="hero-slider__btn hero-slider__btn--prev"
@@ -8,7 +8,7 @@
       <span />
     </button>
 
-    <div id="js-slider-track" class="hero-slider__track">
+    <div ref='sliderTrack' id="js-slider-track" class="hero-slider__track">
       <Slide
         v-for="(post, i) in posts"
         :key="i"
@@ -58,6 +58,7 @@ export default {
   },
   data () {
     return {
+      width: null,
       slider: {
         active: 0,
         slidesToShow: 3,
@@ -69,6 +70,14 @@ export default {
       }
     }
   },
+  created() {
+    window.addEventListener('resize', this.init);
+    // this.handleResize();
+    this.init()
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.init);
+  },
   computed: {
     getSlider () {
       return this.slider
@@ -79,46 +88,46 @@ export default {
   },
   methods: {
     init () {
-      this.slider.target = document.querySelector('#js-slider')
-      this.slider.track = document.querySelector('#js-slider-track')
-      this.slider.width = this.slider.target.offsetWidth
-      this.slider.track.style.transform = 'translate3d(0, 0, 0)'
+      if(this.$refs.sliderTrack) {
 
-      if (process.client) {
-        let id
-        const updateSlider = this.updateSlider
+        this.slider.width = window.innerWidth
+        this.$refs.sliderTrack.style.transform = 'translate3d(0, 0, 0)'
 
-        window.addEventListener('resize', function () {
-          clearTimeout(id)
-          id = setTimeout(updateSlider, 100)
-        })
+        if (process.client) {
+          let id
+          const updateSlider = this.updateSlider
+
+          window.addEventListener('resize', function () {
+            clearTimeout(id)
+            id = setTimeout(updateSlider, 100)
+          })
+        }
       }
+
     },
     removeTransition () {
       setTimeout(() => {
-        this.slider.track.style.transition = ''
+        this.$refs.sliderTrack.style.transition = ''
       }, 600)
     },
     goToSlide (e, direction = '') {
-      this.slider.track.style.transition = this.slider.easing
-
-      console.log("crash", this.slider.width);
+      this.$refs.sliderTrack.style.transition = this.slider.easing
 
       switch (direction) {
         case 'prev': {
           this.slider.active--
-          this.slider.track.style.transform = `translate3d(-${this.slider.width * this.getSlider.active}px, 0, 0)`
+          this.$refs.sliderTrack.style.transform = `translate3d(-${this.slider.width * this.getSlider.active}px, 0, 0)`
           break
         }
         case 'next': {
           this.slider.active++
-          this.slider.track.style.transform = `translate3d(-${this.slider.width * this.getSlider.active}px, 0, 0)`
+          this.$refs.sliderTrack.style.transform = `translate3d(-${this.slider.width * this.getSlider.active}px, 0, 0)`
           break
         }
         default: {
           const idx = parseInt(e.target.getAttribute('data-index'))
 
-          this.slider.track.style.transform = `translate3d(-${this.getSlider.width * idx}px, 0, 0)`
+          this.$refs.sliderTrack.style.transform = `translate3d(-${this.getSlider.width * idx}px, 0, 0)`
           this.slider.active = idx
           break
         }
@@ -127,10 +136,13 @@ export default {
       this.removeTransition()
     },
     updateSlider () {
-      this.slider.width = this.slider.track.offsetWidth
-      this.slider.track.style.transform = `translate3d(-${this.slider.width * this.getSlider.active}px, 0, 0)`
-      this.slider.track.style.transition = this.slider.easing
-      this.removeTransition()
+      if(this.$refs.sliderTrack)  {
+        this.slider.width = this.width
+        this.$refs.sliderTrack.style.transform = `translate3d(-${this.slider.width * this.getSlider.active}px, 0, 0)`
+        this.$refs.sliderTrack.style.transition = this.slider.easing
+        this.removeTransition()
+      }
+
     }
   }
 }

@@ -70,7 +70,7 @@ import Input from './Input'
 import Button from './Button'
 import { email, minLength, required, sameAs } from 'vuelidate/lib/validators'
 import { REGISTER, AUTHENTICATE } from '../../graphql'
-
+const ls = window.localStorage
 export default {
   name: 'RegisterForm',
   components: {
@@ -118,15 +118,23 @@ export default {
       }
     },
     login (credentials) {
+
+      console.log("credentials", credentials);
       this.$apollo.mutate({
         mutation: AUTHENTICATE,
         variables: { ...credentials }
       })
         .then((res) => {
-          if (res.data.authenticate !== '') {
-            this.$store.commit('login', res.data.authenticate)
-            this.$emit('close')
+          const data = {
+            isAuth: true,
+            user: {
+              email: this.form.email,
+              token: res.data.authenticate
+            }
           }
+          ls.setItem('path', JSON.stringify(data))
+          this.$store.dispatch('AUTHENTICATE', data)
+          this.$emit('close')
         })
         .catch((err) => {
           this.$logger(err)

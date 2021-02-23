@@ -13,9 +13,7 @@
         :href="`/view/${post.id}`"
         class="slide__link"
       >
-        <div class="slide__title">
-          {{ post.title }}
-        </div>
+        <div class="slide__title">{{ post.title }}</div>
       </a>
       <time class="slide__date" datetime="post.createdAt | format_datetime">{{ post.createdAt | format_date }}</time>
     </div>
@@ -79,7 +77,7 @@ export default {
   font-size: 60px;
   letter-spacing: 0.01em;
   line-height: 1.55;
-  padding: 8px 0 8px 20px;
+  padding: 8px 10px;
   color: $color-white;
   background-color: $color-black;
 }
