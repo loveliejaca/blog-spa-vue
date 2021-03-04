@@ -4,19 +4,21 @@
     :class="modifier"
     :style="width"
   >
-    <div
-      :style="showPlaceholder(post.image)"
-      class="slide__img"
-    />
-    <div class="slide__content">
-      <a
-        :href="`/view/${post.id}`"
-        class="slide__link"
-      >
-        <div class="slide__title">{{ post.title }}</div>
-      </a>
-      <time class="slide__date" datetime="post.createdAt | format_datetime">{{ post.createdAt | format_date }}</time>
-    </div>
+    <a
+      :href="`/${post.id}`"
+      class="slide__link"
+    >
+      <div
+        :style="showPlaceholder(post.image)"
+        class="slide__img"
+      />
+      <div class="slide__content">
+
+          <div class="slide__title">{{ post.title }}</div>
+
+        <time class="slide__date" datetime="post.createdAt | format_datetime">{{ post.createdAt | format_date }}</time>
+      </div>
+    </a>
   </div>
 </template>
 
@@ -58,6 +60,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
+  height: 100%;
 }
 .slide__content {
   position: absolute;
@@ -70,7 +73,9 @@ export default {
 }
 .slide__link {
   display: block;
-  margin-bottom: 22px;
+  width: 100%;
+  height: 100%;
+  // margin-bottom: 22px;
 }
 .slide__title {
   font-weight: 700;
